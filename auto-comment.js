@@ -79,7 +79,7 @@ function spamComment(currentPost) {
         console.log("Clicked on commentbox");
         driver.sleep(2000);
 
-        accion.sendKeys("Commented Using auto-comment script!");
+        accion.sendKeys(getRandomComment());
         driver.sleep(1000); //1second
         accion.sendKeys(Keys.ENTER).perform();
         driver.sleep(5000); //5second
@@ -129,4 +129,18 @@ function checkCol(str) {
     console.log("Sliced : found at", col);
     return col;
 }
+
+function getRandomComment() {
+    var msgArr = [
+        "sed -auto",
+        "Mic testing 1..2.3.. -auto",
+        "kek -auto",
+        "chal bsdk -auto"
+    ];
+    var rnd = Math.floor(Math.random() * 3);
+    var messeg = msgArr[rnd];
+    
+    return messeg;  
+}
+
 startBrowser();
