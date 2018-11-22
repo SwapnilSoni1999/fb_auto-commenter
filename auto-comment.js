@@ -135,7 +135,13 @@ function getRandomComment() {
         "sed -auto",
         "Mic testing 1..2.3.. -auto",
         "kek -auto",
-        "chal bsdk -auto"
+        "chal bro -auto",
+        "noU pro -auto",
+        " ",
+        ":) :) :) -auto",
+        ":| -auto",
+        " No logic lel -auto",
+        "swepn!l pari -auto"
     ];
     var rnd = Math.floor(Math.random() * 3);
     var messeg = msgArr[rnd];
