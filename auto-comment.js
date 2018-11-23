@@ -137,13 +137,13 @@ function getRandomComment() {
         "kek -auto",
         "chal bro -auto",
         "noU pro -auto",
-        " ",
+        "lmao -auto",
         ":) :) :) -auto",
         ":| -auto",
         " No logic lel -auto",
         "swepn!l pari -auto"
     ];
-    var rnd = Math.floor(Math.random() * 3);
+    var rnd = Math.floor(Math.random() * 9);
     var messeg = msgArr[rnd];
     
     return messeg;  
