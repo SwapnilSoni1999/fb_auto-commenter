@@ -6,14 +6,19 @@ const chrome = require('selenium-webdriver/chrome');
 const path = require('chromedriver').path;
 const objlen = require('object-length');
 const sleep = require('system-sleep');
+const fs = require('fs');
+const readLine = require('readline-sync');
+const Cryptr = require('cryptr');
+
+const cryptr = new Cryptr('swapnil@xdaot');
 
 //env
 var currentpath = process.cwd();
 process.env.PATH += currentpath+"\\chromedriver\\chromedriver.exe;";
 
 //configs
-let postBox = "_4-u2 mbm _4mrt _5jmm _5pat _5v3q _4-u8",
-    EMAIL = "",
+const postBox = "_4-u2 mbm _4mrt _5jmm _5pat _5v3q _4-u8";
+let EMAIL = "",
     PASSWD = "",
     GROUP_URL = "";
 
@@ -91,6 +96,11 @@ function spamComment(currentPost) {
     //commentString = "addComment_"+this.postIdSlice;
 }
 
+function asnGlobCreds(user, pswd) {
+    EMAIL = user;
+    PASSWD = cryptr.decrypt(pswd);
+}
+
 function getNextPost() {
     console.log("getNextPost called...");
     
@@ -149,4 +159,46 @@ function getRandomComment() {
     return messeg;  
 }
 
-startBrowser();
+// before starting browser we have to check if credentials are provided or not
+function main() {
+
+    var creds = {
+        USERMAIL: "",
+        USERPASS: ""
+    }
+    var group_url;
+
+    if(fs.existsSync("./creds.json")) {
+        var group_url = readLine.question("Enter Group URL which you want to spam :");
+        GROUP_URL = group_url.toString();
+        console.log("Credentials found! Starting script...");
+        //then setup creds and startBrowser
+        let rawdata = fs.readFileSync('creds.json');
+        let credObj = JSON.parse(rawdata);
+        creds.USERMAIL = credObj.USERMAIL;
+        creds.USERPASS = credObj.USERPASS;
+    } 
+    else {
+        console.log("Credentials not found! Please enter...\n");
+        var user_mail = readLine.question("Enter your facebook email :");
+        var user_pass = readLine.question("Enter your facebook password :", {
+            hideEchoBack: true // The typed text on screen is hidden by `*` (default).
+        });
+        var hashed_passwd = cryptr.encrypt(user_pass);
+        group_url = readLine.question("Enter Group URL which you want to spam :");
+        GROUP_URL = group_url.toString();
+        //set to json
+        
+        creds.USERMAIL = user_mail.toString();
+        creds.USERPASS = hashed_passwd.toString();
+
+        let configFile = JSON.stringify(creds);
+        fs.writeFileSync('creds.json', configFile);
+        console.log("Config file created Scuccessfully!");
+        console.log("Credentials assigned! Starting Script...\n");
+    }
+
+    asnGlobCreds(creds.USERMAIL, creds.USERPASS);
+    startBrowser();
+}
+main();
