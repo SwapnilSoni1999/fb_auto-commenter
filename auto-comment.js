@@ -25,10 +25,8 @@ let EMAIL = "",
 let options = new chrome.Options(),
     optionCap = options.addArguments(["--disable-notifications"]);
 let driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(optionCap.toCapabilities()).build();
-let actions = driver.actions({ async: true, bridge: true });
 
-
-var postId, postIdSlice,commentBox,next_post,counter=0; 
+var commentBox,counter=0; 
 
 function startBrowser(){
     driver.get("https://facebook.com");
@@ -40,7 +38,7 @@ function startBrowser(){
 
     driver.sleep(6000); //6second
 
-    driver.get(GROUP_URL); //to Machhi Bazar
+    driver.get(GROUP_URL);
 
     driver.sleep(8000); //8second
     driver.executeScript(`
@@ -71,8 +69,6 @@ function spamComment(currentPost) {
     this.postIdSlice = this.postId.slice(10, checkCol(this.postId));
     console.log(this.postIdSlice);
     driver.sleep(3000); //3second
-    //click on comment box
-    //commentBox = null;
     
     driver.executeScript(`
         var sed = document.getElementsByClassName("UFIList")[`+ counter +`].children[2].id;
@@ -93,7 +89,6 @@ function spamComment(currentPost) {
         delete accion;
         getNextPost();
     });
-    //commentString = "addComment_"+this.postIdSlice;
 }
 
 function asnGlobCreds(user, pswd) {
@@ -116,9 +111,6 @@ function getNextPost() {
         console.log("Counter=",counter);
         console.log("RETURNED :", nex);
         driver.sleep(4000);
-        // driver.executeScript(`
-        //     document.activeElement.blur();
-        // `);
         sleep(2000); //2econd systemsleep
         console.log("ReCalling spamComment...");
         spamComment(nex);
@@ -172,7 +164,6 @@ function main() {
         var group_url = readLine.question("Enter Group URL which you want to spam :");
         GROUP_URL = group_url.toString();
         console.log("Credentials found! Starting script...");
-        //then setup creds and startBrowser
         let rawdata = fs.readFileSync('creds.json');
         let credObj = JSON.parse(rawdata);
         creds.USERMAIL = credObj.USERMAIL;
@@ -182,7 +173,7 @@ function main() {
         console.log("Credentials not found! Please enter...\n");
         var user_mail = readLine.question("Enter your facebook email :");
         var user_pass = readLine.question("Enter your facebook password :", {
-            hideEchoBack: true // The typed text on screen is hidden by `*` (default).
+            hideEchoBack: true
         });
         var hashed_passwd = cryptr.encrypt(user_pass);
         group_url = readLine.question("Enter Group URL which you want to spam :");
