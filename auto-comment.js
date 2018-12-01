@@ -37,8 +37,9 @@ function startBrowser(){
     driver.findElement(By.id('loginbutton')).click();
 
     driver.sleep(6000); //6second
-
-    driver.get(GROUP_URL);
+    if(GROUP_URL != "") {
+        driver.get(GROUP_URL);
+    }
 
     driver.sleep(8000); //8second
     driver.executeScript(`
@@ -161,7 +162,7 @@ function main() {
     var group_url;
 
     if(fs.existsSync("./creds.json")) {
-        var group_url = readLine.question("Enter Group URL which you want to spam :");
+        var group_url = readLine.question("Enter Group URL which you want to spam(optional) :");
         GROUP_URL = group_url.toString();
         console.log("Credentials found! Starting script...");
         let rawdata = fs.readFileSync('creds.json');
@@ -176,7 +177,7 @@ function main() {
             hideEchoBack: true
         });
         var hashed_passwd = cryptr.encrypt(user_pass);
-        group_url = readLine.question("Enter Group URL which you want to spam :");
+        group_url = readLine.question("Enter Group URL which you want to spam(optional) :");
         GROUP_URL = group_url.toString();
         //set to json
         
