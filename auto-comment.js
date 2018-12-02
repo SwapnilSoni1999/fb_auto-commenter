@@ -14,7 +14,11 @@ const cryptr = new Cryptr('swapnil@xdaot');
 
 //env
 var currentpath = process.cwd();
-process.env.PATH += currentpath+"\\chromedriver\\chromedriver.exe;";
+if(process.platform == 'win32') {
+    process.env.PATH += currentpath + "\\chromedriver\\chromedriver.exe;";
+} else if(process.platform == 'linux') {
+    process.env.PATH += currentpath + "/chromedriver/chromedriver";
+}
 
 //configs
 const postBox = "_4-u2 mbm _4mrt _5jmm _5pat _5v3q _4-u8";
