@@ -27,6 +27,7 @@ Before you run script you need following packages to be installed:
 | fs |
 | readline-sync |
 | cryptr |
+| tcp-port-used |
 
 Install them using following command: 
 ```sh
