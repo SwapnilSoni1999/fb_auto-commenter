@@ -27,11 +27,11 @@ Before you run script you need following packages to be installed:
 | fs |
 | readline-sync |
 | cryptr |
+| tcp-port-used |
 
 Install them using following command: 
 ```sh
-$ npm install --save selenium-webdriver@3.6.0 chromedriver object-length
-  system-sleep fs readline-sync cryptr
+$ npm install --save selenium-webdriver@3.6.0 chromedriver object-length system-sleep fs readline-sync cryptr tcp-port-used
 ```
 After that just run `node auto-comment.js` in terminal and follow the instructions.
 ```sh
