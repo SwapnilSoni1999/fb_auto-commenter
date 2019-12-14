@@ -13,7 +13,7 @@
     "cryptr": "^4.0.2",
     "fs": "0.0.1-security",
     "node-key-sender": "^1.0.10",
-    "npm": "^6.4.1",
+    "npm": "^6.13.4",
     "object-length": "^0.2.0",
     "readline-sync": "^1.4.9",
     "selenium-webdriver": "^3.6.0",
